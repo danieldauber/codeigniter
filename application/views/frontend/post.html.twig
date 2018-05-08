@@ -1,0 +1,57 @@
+{% extends 'base/frontend/base.html.twig' %}
+
+{% block title %}
+	{% for postagem in postagens %}
+	{{ postagem.titulo }}
+	{% endfor %}
+	{% for subtitle in page_subtitle %}
+		{{ subtitle.categoria}}
+	{% endfor %} |
+	{{ title }}
+{% endblock %}
+
+{% block navbar %}
+	{{ include('frontend/navbar.html.twig') }}
+{% endblock %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="container">
+
+	<div class="row">
+
+		<!-- Blog Entries Column -->
+		<div class="col-md-8">
+
+			{% for postagem in postagens %}
+
+			<h1>
+				<a href="{{ base_url('postagem/') ~ postagem.id_posts ~ "/" ~ postagem.titulo | lower | replace({' ': '-', }) }}">{{ postagem.titulo }}</a>
+			</h1>
+			<p class="lead">
+				por <a href="{{ base_url('autor/' ~ postagem.id_usuario ~ "/" ~ postagem.nome | lower | replace({' ': '-', })) }}">{{ postagem.nome }}</a>
+			</p>
+			<p><span class="glyphicon glyphicon-time"></span> Postado em {{ postagem.data |date("d/m/Y") }}</p>
+			<hr>
+				<p>{{ postagem.subtitulo }}</p>
+			<img class="img-responsive" src="{{ postagem.img }}" alt="">
+			<hr>
+			{{ postagem.conteudo }}
+				<hr>
+			{% endfor %}
+		</div>
+
+		{{ include('frontend/sidebar.html.twig') }}
+
+	</div>
+	<!-- /.row -->
+
+	<hr>
+
+</div>
+<!-- /.container -->
+{% endblock %}
+
+{% block footer %}
+	{{ include('frontend/footer.html.twig') }}
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base/frontend/base.html.twig' %}
+
+{% block title %}
+	{{ page_title }} -
+	{% for subtitle in page_subtitle %}
+		{{ subtitle.categoria}}
+	{% endfor %} |
+	{{ title }}
+{% endblock %}
+
+{% block navbar %}
+	{{ include('frontend/navbar.html.twig') }}
+{% endblock %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="container">
+
+	<div class="row">
+
+		<!-- Blog Entries Column -->
+		<div class="col-md-8">
+
+			<h1 class="page-header">
+				{{ page_title }} -
+				<small>{{ page_subtitle }}</small>
+			</h1>
+
+				{% for autor in autores %}
+					<div class="col-md-4">
+						<img class="img-responsive img-circle" src="{{ autor.imagem }}" alt="">
+					</div>
+					<div class="col-md-8 ">
+						<h2>
+							{{ autor.nome }}
+						</h2>
+						<hr>
+						<p>{{ autor.historico }}</p>
+						<hr>
+					</div>
+				{% endfor %}
+
+
+		</div>
+
+		{{ include('frontend/sidebar.html.twig') }}
+
+	</div>
+	<!-- /.row -->
+
+	<hr>
+
+</div>
+<!-- /.container -->
+{% endblock %}
+
+{% block footer %}
+	{{ include('frontend/footer.html.twig') }}
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base/frontend/base.html.twig' %}
+
+{% block title %}
+	{{ page_title }} -
+	{% for subtitle in page_subtitle %}
+		{{ subtitle.categoria}}
+	{% endfor %} |
+	{{ title }}
+{% endblock %}
+
+{% block navbar %}
+	{{ include('frontend/navbar.html.twig') }}
+{% endblock %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="container">
+
+	<div class="row">
+
+		<!-- Blog Entries Column -->
+		<div class="col-md-8">
+
+			<h1 class="page-header">
+				{{ page_title }} -
+				<small>{{ page_subtitle }}</small>
+			</h1>
+
+				<div class="col-md-12 ">
+
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+				</div>
+				<br>
+				<h1 class="page-header">
+					Nossos autores
+				</h1>
+			<div class="col-md-12 row">
+				{% for autor in autores %}
+				<div class="col-md-4 col-xs-6">
+					<img class="img-responsive img-circle" src="{{ autor.imagem }}" alt="">
+					<h4 class="text-center">
+						<a href="{{ base_url('autor/' ~ autor.id_usuario ~ "/" ~ autor.nome | lower | replace({' ': '-', })) }}">{{ autor.nome }}</a>
+					</h4>
+				</div>
+				{% endfor %}
+			</div>
+
+		</div>
+
+		{{ include('frontend/sidebar.html.twig') }}
+
+	</div>
+	<!-- /.row -->
+
+	<hr>
+
+</div>
+<!-- /.container -->
+{% endblock %}
+
+{% block footer %}
+	{{ include('frontend/footer.html.twig') }}
+{% endblock %}
