@@ -13,11 +13,9 @@ class Categorias extends CI_Controller {
 	{
 		parent::__construct();
 
-		//$this->twig->addGlobal('limpar', $this->load->helper(funcoes_helper));
-
-		$this->load->model('categorias_model', 'modelcategorias');
-		$this->categorias = $this->modelcategorias->get_categorias();
-		$this->load->model('publicacoes_model', 'modelpublicacoes');
+		$this->load->model('categorias/categoria_model', 'categorias');
+		$this->categorias = $this->categorias->fetchAll();
+		$this->load->model('posts_model', 'posts');
 
 	}
 

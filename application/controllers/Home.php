@@ -27,7 +27,9 @@ class Home extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-
+		$this->load->model('categorias/categoria_model', 'categorias');
+		$this->load->model('posts/post_model', 'posts');
+		$this->load->model('usuarios/usuarios_model', 'usuarios');
 
 	}
 
@@ -36,10 +38,8 @@ class Home extends CI_Controller {
 	{
 		try{
 
-			$categorias = $this->doctrine->em->getRepository(\Entity\Categorias::class)->findAll();
-			$posts = $this->doctrine->em->getRepository(\Entity\Posts::class)->findAll();
-
-			//var_dump($posts);
+			$categorias = $this->categorias->get_categorias();
+			$posts = $this->posts->destaques_home();
 
 			$data['categorias'] = $categorias;
 			$data['postagens'] = $posts;

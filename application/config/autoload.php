@@ -63,7 +63,6 @@ $autoload['libraries'] = array(
 	'database',
 	'session',
 	'encryption',
-	'doctrine',
 );
 
 /*

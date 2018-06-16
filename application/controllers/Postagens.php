@@ -13,21 +13,21 @@ class Postagens extends CI_Controller {
 	{
 		parent::__construct();
 
-		//$this->twig->addGlobal('limpar', $this->load->helper(funcoes_helper));
-
-		$this->load->model('categorias_model', 'modelcategorias');
-		$this->categorias = $this->modelcategorias->get_categorias();
-		$this->load->model('publicacoes_model', 'modelpublicacoes');
+		$this->load->model('categorias/categoria_model', 'categorias');
+		$this->load->model('posts/posts_model', 'posts');
 
 	}
 
 
-	public function index($id, $slug = null)
+	public function index($id)
 	{
 		try{
 
-			$data['categorias'] = $this->categorias;
-			$data['postagens'] = $this->modelpublicacoes->get_posts($id);
+			$data['categorias'] = $this->categorias->fetchAll();
+			$data['postagens'] = $this->posts->fetchAll([
+				'where' => 'id_posts = ' . $id,
+			]);
+
 			$data['title'] = "Blogao";
 			$this->twig->display('frontend/post.html', $data);
 

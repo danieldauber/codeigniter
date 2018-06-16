@@ -13,8 +13,7 @@
 	"require": {
 		"php": ">=7.1",
 	  	"twig/twig": "^2.0",
-		"co-developers/ci-twig": "^2.0",
-		"doctrine/orm": "^2.6"
+		"co-developers/ci-twig": "^2.0"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

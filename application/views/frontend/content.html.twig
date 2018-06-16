@@ -31,7 +31,8 @@
 				<a href="{{ base_url('postagem/') ~ postagem.id_posts ~ "/" ~ postagem.titulo | lower | replace({' ': '-', }) }}">{{ postagem.titulo }}</a>
 			</h2>
 			<p class="lead">
-				por <a href="{{ base_url('autor/' ~ postagem.id_user ~ "/" ~ postagem.nome | lower | replace({' ': '-', })) }}">{{ postagem.nome }}</a>
+				por <a href="{{ base_url('autor/' ~ postagem.idautor ~ "/"
+					~ postagem.nome | lower | replace({' ': '-', })) }}">{{ postagem.nome }}</a>
 			</p>
 			<p><span class="glyphicon glyphicon-time"></span> Postado em {{ postagem.data |date("d/m/Y") }}</p>
 			<hr>
