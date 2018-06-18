@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class About extends CI_Controller {
 
+    public $categorias;
 
 	/**
 	 * Construtor da classe
@@ -13,10 +14,10 @@ class About extends CI_Controller {
 	{
 		parent::__construct();
 
-		$this->load->model('categorias_model', 'modelcategorias');
+		$this->load->model('categorias/categoria_model', 'modelcategorias');
 		$this->categorias = $this->modelcategorias->get_categorias();
-		$this->load->model('publicacoes_model', 'modelpublicacoes');
-		$this->load->model('Usuarios_model','modelusers');
+		$this->load->model('posts/post_model', 'modelpublicacoes');
+		$this->load->model('usuarios/usuarios_model','modelusuarios');
 
 	}
 
@@ -26,7 +27,7 @@ class About extends CI_Controller {
 		try{
 
 			$data['categorias'] = $this->categorias;
-			$data['autores'] = $this->modelusers->get_autores();
+			$data['autores'] = $this->modelusuarios->get_autores();
 			$data['title'] = "Blogao";
 			$data['page_title'] = "Sobre";
 			$data['page_subtitle'] = "Conheça nossa equipe";
@@ -45,7 +46,7 @@ class About extends CI_Controller {
 		$data['title'] = "Blogao";
 		$data['page_title'] = "About";
 		$data['page_subtitle'] = "Autor";
-		$data['autores'] = $this->modelusers->get_autor($id);
+		$data['autores'] = $this->modelusuarios->get_autor($id);
 
 		$this->twig->display('frontend/autor.html', $data);
 	}

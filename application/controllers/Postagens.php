@@ -13,8 +13,8 @@ class Postagens extends CI_Controller {
 	{
 		parent::__construct();
 
-		$this->load->model('categorias/categoria_model', 'categorias');
-		$this->load->model('posts/posts_model', 'posts');
+		$this->load->model('categorias/categoria_model', 'modelcategorias');
+		$this->load->model('posts/post_model', 'modelposts');
 
 	}
 
@@ -23,10 +23,8 @@ class Postagens extends CI_Controller {
 	{
 		try{
 
-			$data['categorias'] = $this->categorias->fetchAll();
-			$data['postagens'] = $this->posts->fetchAll([
-				'where' => 'id_posts = ' . $id,
-			]);
+			$data['categorias'] = $this->modelcategorias->get_categorias();
+			$data['postagens'] = $this->modelposts->get_post_by_id($id);
 
 			$data['title'] = "Blogao";
 			$this->twig->display('frontend/post.html', $data);

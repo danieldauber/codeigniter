@@ -11,20 +11,20 @@ class Twig {
 
     public function __construct() {
         // default config
-        $this->config = array(
-            'paths' => array(VIEWPATH),
+        $this->config = [
+            'paths' => [VIEWPATH],
             'cache' => APPPATH . 'cache/twig_cache',
             'debug' => ENVIRONMENT !== 'production'
-		);
+        ];
         // functions
-        $this->functions = array(
+        $this->functions = [
             'base_url',
             'site_url',
             'current_url',
             'uri_string'
-		);
+        ];
         // safe functions
-        $this->functions_safe = array(
+        $this->functions_safe = [
             'form_open',
             'form_close',
             'form_error',
@@ -33,7 +33,7 @@ class Twig {
             'set_checkbox',
             'set_radio',
             'validation_errors'
-		);
+        ];
         $this->init();
     }
     
@@ -50,10 +50,10 @@ class Twig {
      */
     private function createTwig() {
         $loader = new \Twig_Loader_Filesystem($this->config['paths']);
-        $twig = new \Twig_Environment($loader, array(
+        $twig = new \Twig_Environment($loader, [
             'cache' => $this->config['cache'],
             'debug' => $this->config['debug']
-		));
+        ]);
         if ($this->config['debug']) {
             $twig->addExtension(new \Twig_Extension_Debug());
         }
