@@ -13,8 +13,8 @@ class Usuarios extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-		$this->load->model('Usuarios_model', 'usuarios');
-		// Switch to the MCrypt driver
+		$this->load->model('usuarios/usuarios_model', 'modelusuarios');
+		// Switch to the Blowfish driver
 		$this->encryption->initialize(array('driver' => 'Blowfish'));
 
 	}
@@ -74,7 +74,7 @@ class Usuarios extends CI_Controller {
 		} else {
 			$user_data = $this->input->post();
 
-			if ($user = $this->usuarios->validate_login($user_data)) {
+			if ($user = $this->modelusuarios->validate_login($user_data)) {
 				$this->set_session($user);
 				redirect(base_url('admin/'));
 			} else {
@@ -123,7 +123,7 @@ class Usuarios extends CI_Controller {
 			$user->email = $user_data['txt-email'];
 			$user->historico = $user_data['txt-historico'];
 			$user->user = $user_data['txt-user'];
-			$user->password = $this->encryption->encrypt($user_data['txt-senha']);
+			$user->password = password_hash($user_data['txt-senha'], PASSWORD_BCRYPT);
 
 			if($user->save()) {
 				redirect(base_url('admin/usuarios'));
@@ -149,12 +149,12 @@ class Usuarios extends CI_Controller {
 	 * @Library Users_library
 	 */
 
-	private function set_session(Users_library $user) {
+	private function set_session($user) {
 		$this->session->set_userdata(
 			array(
 				"logado" => true,
 				"user" => array(
-					"user_object" => $user->to_array(),
+					"user_object" => $user,
 				)
 			)
 		);

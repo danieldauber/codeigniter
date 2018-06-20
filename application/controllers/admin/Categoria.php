@@ -17,7 +17,7 @@ class Categoria extends CI_Controller {
 			redirect(base_url('admin/login'));
 		}
 
-		$this->load->model('categorias_model', 'modelcategorias');
+		$this->load->model('categorias/categoria_model', 'modelcategorias');
 		$this->categorias = $this->modelcategorias->get_categorias();
 		$this->load->library('form_validation');
 
@@ -51,7 +51,7 @@ class Categoria extends CI_Controller {
 		if($this->form_validation->run() == FALSE) {
 			$this->index();
 		} else {
-			if($this->modelcategorias->inserir($this->input->post())) {
+			if($this->modelcategorias->inserir($this->input->post('txt-categoria'))) {
 				redirect(base_url('admin/categoria'));
 			} else {
 				echo "erro no sistema";

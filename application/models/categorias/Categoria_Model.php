@@ -21,4 +21,10 @@ class Categoria_Model extends CI_Model {
 	    return $this->db->get('categoria')->result();
     }
 
+    public function inserir($categoria)
+    {
+        $dados['titulo'] = $categoria;
+        return $this->db->insert('categoria',$dados);
+    }
+
 }
