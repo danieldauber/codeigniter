@@ -27,4 +27,19 @@ class Categoria_Model extends CI_Model {
         return $this->db->insert('categoria',$dados);
     }
 
+    public function delete($id)
+    {
+        $this->db->where('id_categoria',$id);
+        return $this->db->delete('categoria');
+    }
+
+    public function alterar($categoria)
+    {
+
+        $dados['titulo'] = $categoria['txt-categoria'];
+
+        $this->db->where('id_categoria',$categoria['id_categoria']);
+        return $this->db->update('categoria',$dados);
+    }
+
 }
