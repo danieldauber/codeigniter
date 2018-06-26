@@ -40,4 +40,22 @@ class Usuarios_Model extends CI_Model
         }
 
     }
+
+    public function inserir($user_data)
+    {
+        $dados['nome'] = $user_data['txt-nome'];
+        $dados['email'] = $user_data['txt-email'];
+        $dados['historico'] = $user_data['txt-historico'];
+        $dados['user'] = $user_data['txt-user'];
+        $dados['password'] = password_hash($user_data['txt-senha'], PASSWORD_BCRYPT);
+
+        return $this->db->insert('usuarios', $dados);
+
+    }
+
+    public function delete($id)
+    {
+        $this->db->where('id_usuarios',$id);
+        return $this->db->delete('usuarios');
+    }
 }

@@ -33,7 +33,7 @@ class Usuarios extends CI_Controller {
 			$data['page_title'] = "Painel de Controle";
 			$data['page_subtitle'] = "Usuários";
 			$data['errors'] = validation_errors('','');
-			$data['usuarios'] = $this->usuarios->get_autores();
+			$data['usuarios'] = $this->modelusuarios->get_autores();
 
 			$this->twig->display('backend/usuarios.html', $data);
 
@@ -104,7 +104,7 @@ class Usuarios extends CI_Controller {
 		$this->form_validation->set_rules('txt-historico', 'Historico',
 			'required|min_length[20]');
 		$this->form_validation->set_rules('txt-user', 'Usuário',
-			'required|min_length[3]|is_unique[usuario.user]');
+			'required|min_length[3]|is_unique[usuarios.user]');
 		$this->form_validation->set_rules('txt-senha', 'Senha',
 			'required|min_length[3]');
 		$this->form_validation->set_rules('txt-confirm', 'Confirmar senha',
@@ -118,14 +118,7 @@ class Usuarios extends CI_Controller {
 
 			$user_data = $this->input->post();
 
-			$user = new Usuarios_Library();
-			$user->nome = $user_data['txt-nome'];
-			$user->email = $user_data['txt-email'];
-			$user->historico = $user_data['txt-historico'];
-			$user->user = $user_data['txt-user'];
-			$user->password = password_hash($user_data['txt-senha'], PASSWORD_BCRYPT);
-
-			if($user->save()) {
+			if($this->modelusuarios->inserir($user_data)) {
 				redirect(base_url('admin/usuarios'));
 			} else {
 				echo "Erro no sistema";
@@ -133,17 +126,14 @@ class Usuarios extends CI_Controller {
 		}
 	}
 
-	public function excluir($id) {
-
-		$user = new Usuarios_Library((int) $id);
-
-		if($user->delete()) {
-			redirect(base_url('admin/usuarios'));
-		} else {
-			echo "Erro no sistema";
-		}
-
-	}
+    public function excluir($id)
+    {
+        if($this->modelusuarios->delete($id)) {
+            redirect(base_url('admin/usuarios'));
+        } else {
+            echo "erro no sistema";
+        }
+    }
 
 	/*
 	 * @Library Users_library
@@ -159,6 +149,7 @@ class Usuarios extends CI_Controller {
 			)
 		);
 	}
+
 
 	private function unset_session() {
 		$this->session->set_userdata(
