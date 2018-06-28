@@ -126,6 +126,58 @@ class Usuarios extends CI_Controller {
 		}
 	}
 
+    public function alterar($id)
+    {
+        try{
+
+            $data['usuario'] = $this->modelusuarios->get_usuario($id);
+            $data['errors'] = validation_errors('','');
+            $data['title'] = "Blogão";
+            $data['page_title'] = "Painel de Controle";
+            $data['page_subtitle'] = "Usuarios";
+
+            $this->twig->display('backend/alterar_usuarios.html', $data);
+
+
+        }catch(Exception $e){
+
+            show_error($e->getMessage().' --- '.$e->getTraceAsString());
+
+        }
+    }
+
+    public function editar()
+    {
+        $this->form_validation->set_rules('txt-nome', 'Nome do Usuário',
+            'required|min_length[3]');
+        $this->form_validation->set_rules('txt-email', 'Email',
+            'required|valid_email');
+        $this->form_validation->set_rules('txt-historico', 'Historico',
+            'required|min_length[20]');
+        $this->form_validation->set_rules('txt-user', 'Usuário',
+            'required|min_length[3]');
+        $this->form_validation->set_rules('txt-senha', 'Senha',
+            'min_length[3]');
+        $this->form_validation->set_rules('txt-confirm', 'Confirmar senha',
+            'matches[txt-senha]');
+
+        if($this->form_validation->run() == FALSE) {
+
+            $this->alterar($this->input->post('id_usuarios'));
+
+        } else {
+
+            $user_data = $this->input->post();
+
+            if($this->modelusuarios->alterar($user_data)) {
+
+                redirect(base_url('admin/usuarios'));
+            } else {
+                echo "Erro no sistema";
+            }
+        }
+    }
+
     public function excluir($id)
     {
         if($this->modelusuarios->delete($id)) {

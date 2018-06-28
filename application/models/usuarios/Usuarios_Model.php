@@ -58,4 +58,23 @@ class Usuarios_Model extends CI_Model
         $this->db->where('id_usuarios',$id);
         return $this->db->delete('usuarios');
     }
+
+    public function get_usuario($id)
+    {
+        $this->db->where('id_usuarios',$id);
+        return $this->db->get('usuarios')->row();
+    }
+
+    public function alterar($user_data)
+    {
+
+        $dados['nome'] = $user_data['txt-nome'];
+        $dados['email'] = $user_data['txt-email'];
+        $dados['historico'] = $user_data['txt-historico'];
+        $dados['user'] = $user_data['txt-user'];
+        $dados['password'] = password_hash($user_data['txt-senha'], PASSWORD_BCRYPT);
+
+        $this->db->where('id_usuarios',$user_data['id_usuarios']);
+        return $this->db->update('usuarios',$dados);
+    }
 }
