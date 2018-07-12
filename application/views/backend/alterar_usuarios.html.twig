@@ -42,6 +42,34 @@
 		<!-- /.col-lg-6 -->
 
 		<!-- /.col-lg-6 -->
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Imagem de destaque do usuário
+				</div>
+				<div class="panel-body">
+					<div class="">
+						<div class="col-lg-6">
+							{% if usuario.imagem %}
+								<img src="{{ usuario.imagem }}" />
+							{% else %}
+								<img src="{{ semfoto }}" />
+							{% endif %}
+						</div>
+
+						<div class="col-lg-6">
+                            {{ include('backend/form_imagem_usuario.html.twig') }}
+						</div>
+					</div>
+					<!-- /.row (nested) -->
+				</div>
+				<!-- /.panel-body -->
+			</div>
+			<!-- /.panel -->
+		</div>
+		<!-- /.col-lg-6 -->
+
+		<!-- /.col-lg-6 -->
 	</div>
 	<!-- /.row -->
 </div>

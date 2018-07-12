@@ -51,7 +51,7 @@
 							<table class="table table-striped">
 								<thead>
 									<tr>
-										<td>Foto</td>
+										<td class="col-md-3">Foto</td>
 										<td>Nome do Usuário</td>
 										<td>Alterar</td>
 										<td>Excluir</td>
@@ -61,7 +61,13 @@
 
 								{% for usuario in usuarios %}
 								<tr>
-									<td>{{ usuario.imagem }}</td>
+									<td>
+                                        {% if usuario.imagem %}
+											<img src="{{ usuario.imagem }}" class="img-responsive img-thumbnail"/>
+                                        {% else %}
+											<img src="{{ semfoto }}" class="img-thumbnail" />
+                                        {% endif %}
+									</td>
 									<td>{{ usuario.nome }}</td>
 									<td><a href="{{ base_url('admin/usuarios/alterar/') ~ usuario.id_usuarios }}"><i class="fa fa-refresh fa-fw"></i> Alterar</a> </td>
 									<td><a href="{{ base_url('admin/usuarios/excluir/') ~ usuario.id_usuarios }}"><i class="fa fa-remove fa-fw"></i> Excluir</a></td>

@@ -55,9 +55,14 @@
 			<div class="col-md-12 row">
 				{% for autor in autores %}
 				<div class="col-md-4 col-xs-6">
-					<img class="img-responsive img-circle" src="{{ autor.imagem }}" alt="">
+                    {% if autor.imagem %}
+				<img src="{{ autor.imagem }}" class="img-responsive img-circle"/>
+                {% else %}
+					<img src="{{ semfoto }}" class="img-thumbnail" />
+                        {% endif %}
+
 					<h4 class="text-center">
-						<a href="{{ base_url('autor/' ~ autor.id_usuario ~ "/" ~ autor.nome | lower | replace({' ': '-', })) }}">{{ autor.nome }}</a>
+						<a href="{{ base_url('autor/' ~ autor.id_usuarios ~ "/" ~ autor.nome | lower | replace({' ': '-', })) }}">{{ autor.nome }}</a>
 					</h4>
 				</div>
 				{% endfor %}

@@ -34,6 +34,7 @@ class Usuarios extends CI_Controller {
 			$data['page_subtitle'] = "Usuários";
 			$data['errors'] = validation_errors('','');
 			$data['usuarios'] = $this->modelusuarios->get_autores();
+            $data['semfoto'] = base_url() . "assets/frontend/images/semFoto.png";
 
 			$this->twig->display('backend/usuarios.html', $data);
 
@@ -135,9 +136,53 @@ class Usuarios extends CI_Controller {
             $data['title'] = "Blogão";
             $data['page_title'] = "Painel de Controle";
             $data['page_subtitle'] = "Usuarios";
+            $data['semfoto'] = base_url() . "assets/frontend/images/semFoto.png";
 
             $this->twig->display('backend/alterar_usuarios.html', $data);
 
+
+        }catch(Exception $e){
+
+            show_error($e->getMessage().' --- '.$e->getTraceAsString());
+
+        }
+    }
+
+    public function nova_foto()
+    {
+        try{
+
+            if($this->input->post()) {
+                $id = $this->input->post('id_usuarios');
+
+                $config['upload_path'] = './assets/frontend/images/usuarios';
+                $config['allowed_types'] = 'jpg';
+                $config['file_name'] = md5($id);
+                $config['overwrite'] = TRUE;
+
+                $this->load->library('upload', $config);
+
+                if(!$this->upload->do_upload('userfile')) {
+                    echo $this->upload->display_errors();
+                } else {
+                    $thumb['source_image'] = base_url(). '/assets/frontend/images/usuarios/' . md5($id) . '.jpg';
+                    $thumb['create_thumb'] = FALSE;
+                    $thumb['width'] = 200;
+                    $thumb['height'] = 200;
+
+                    $this->load->library('image_lib',$thumb);
+
+                    if(!$this->image_lib->resize()){
+                        if($this->modelusuarios->alterar_imagem($id, $thumb['source_image'])){
+                            redirect(base_url('admin/usuarios/alterar/'. $id));
+                        } else {
+                            echo "erro";
+                        }
+                    } else {
+                        echo $this->image_lib->display_errors();
+                    }
+                }
+            }
 
         }catch(Exception $e){
 

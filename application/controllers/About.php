@@ -31,6 +31,7 @@ class About extends CI_Controller {
 			$data['title'] = "Blogao";
 			$data['page_title'] = "Sobre";
 			$data['page_subtitle'] = "Conheça nossa equipe";
+            $data['semfoto'] = base_url() . "assets/frontend/images/semFoto.png";
 			$this->twig->display('frontend/about.html', $data);
 
 		}catch(Exception $e){
@@ -47,6 +48,7 @@ class About extends CI_Controller {
 		$data['page_title'] = "About";
 		$data['page_subtitle'] = "Autor";
 		$data['autores'] = $this->modelusuarios->get_autor($id);
+        $data['semfoto'] = base_url() . "assets/frontend/images/semFoto.png";
 
 		$this->twig->display('frontend/autor.html', $data);
 	}

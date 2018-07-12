@@ -77,4 +77,11 @@ class Usuarios_Model extends CI_Model
         $this->db->where('id_usuarios',$user_data['id_usuarios']);
         return $this->db->update('usuarios',$dados);
     }
+
+    public function alterar_imagem($id, $imagem)
+    {
+        $dados['imagem'] = $imagem;
+        $this->db->where('id_usuarios',$id);
+        return $this->db->update('usuarios',$dados);
+    }
 }
